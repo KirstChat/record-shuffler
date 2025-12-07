@@ -13,7 +13,7 @@ const App = () => {
             <Header />
 
             <Records />
-            {/* <ReactQueryDevtools initialIsOpen={false} />s */}
+            {/* <ReactQueryDevtools initialIsOpen={false} /> */}
 
             <Footer />
         </QueryClientProvider>
