@@ -11,6 +11,7 @@
 		"update": "npx npm-check-updates --interactive --format group"
 	},
 	"dependencies": {
+		"@tailwindcss/postcss": "^4.1.17",
 		"@tanstack/react-query": "5.90.12",
 		"@tanstack/react-query-devtools": "5.91.1",
 		"@types/eslint-plugin-jsx-a11y": "6.10.1",
