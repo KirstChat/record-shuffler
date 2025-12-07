@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { api } from '../helpers/constants';
+import { API } from '../helpers/constants';
 import axios from 'axios';
 import Button from './Button';
 import Slider from './Slider';
 
-const userName = import.meta.env.VITE_DISCOGS_USER_NAME;
-const folderId = import.meta.env.VITE_DISCOGS_COLLECITON_FOLDER_ID;
-const token = import.meta.env.VITE_DISCOGS_USER_TOKEN;
+const USERNAME = import.meta.env.VITE_DISCOGS_USER_NAME;
+const FOLDER_ID = import.meta.env.VITE_DISCOGS_COLLECITON_FOLDER_ID;
+const TOKEN = import.meta.env.VITE_DISCOGS_USER_TOKEN;
 
 const Records = () => {
     const [isFirstLoad, setIsFirstLoad] = useState(true);
@@ -21,7 +21,7 @@ const Records = () => {
      */
     const fetchRecords = async () => {
         const res = await axios.get(
-            `${api}/users/${userName}/collection/folders/${folderId}/releases?token=${token}&per_page=100`
+            `${API}/users/${USERNAME}/collection/folders/${FOLDER_ID}/releases?token=${TOKEN}&per_page=${LIMIT}`
         );
 
         return res.data;
