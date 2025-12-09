@@ -1,27 +1,36 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { api } from '../helpers/constants';
+import {
+    API,
+    FOLDER_ID,
+    LIMIT,
+    USER_NAME,
+    USER_TOKEN,
+} from '../helpers/constants';
 import axios from 'axios';
 import Button from './Button';
 import Slider from './Slider';
 
-const userName = import.meta.env.VITE_DISCOGS_USER_NAME;
-const folderId = import.meta.env.VITE_DISCOGS_COLLECITON_FOLDER_ID;
-const token = import.meta.env.VITE_DISCOGS_USER_TOKEN;
+interface Release {
+    id: number;
+    basic_information: {
+        artists: { name: string }[];
+        cover_image: string;
+        title: string;
+    };
+}
 
 const Records = () => {
-    const [isFirstLoad, setIsFirstLoad] = useState(true);
-    const [isLoading, setIsLoading] = useState(true);
-    const [records, setRecords] = useState();
+    const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [records, setRecords] = useState<Release[]>([]);
 
     /**
-     * Fetch records from Discogs API
-     *
-     * @returns data
+     * Fetch releases data from Discogs API
      */
     const fetchRecords = async () => {
         const res = await axios.get(
-            `${api}/users/${userName}/collection/folders/${folderId}/releases?token=${token}&per_page=100`
+            `${API}/users/${USER_NAME}/collection/folders/${FOLDER_ID}/releases?token=${USER_TOKEN}&per_page=${LIMIT}`
         );
 
         return res.data;
@@ -30,15 +39,17 @@ const Records = () => {
     /**
      * React Query hook to make fetch request
      */
-    const { data, error, isPending } = useQuery({
-        queryKey: ['records'],
-        queryFn: () => fetchRecords(),
-    });
+    const { data, error, isPending } = useQuery<{ releases: Release[] }, Error>(
+        {
+            queryKey: ['records'],
+            queryFn: fetchRecords,
+        }
+    );
 
     /**
      * Function to shuffle records in a random order
      */
-    const shuffleRecords = (releases) => {
+    const shuffleRecords = (releases?: Release[]) => {
         if (releases && releases.length > 0) {
             for (let i = releases.length - 1; i > 0; i--) {
                 let j = Math.floor(Math.random() * (i + 1));
@@ -46,6 +57,8 @@ const Records = () => {
             }
 
             setRecords(releases);
+        } else {
+            return;
         }
     };
 
@@ -80,7 +93,10 @@ const Records = () => {
             {!isPending && !error && !isLoading && (
                 <section className='flex flex-col justify-center -ml-4 -mr-4'>
                     {!isFirstLoad && records && (
-                        <Slider records={records} isLoading={isLoading} />
+                        <Slider
+                            records={records as unknown as any}
+                            isLoading={isLoading}
+                        />
                     )}
                 </section>
             )}
@@ -90,14 +106,14 @@ const Records = () => {
                     <Button
                         label='Shuffle Records'
                         clickHandler={shuffleHandler}
-                        color='sky'
+                        colour='sky'
                     />
                 )}
                 {!isFirstLoad && !isLoading && (
                     <Button
                         label='Re-Shuffle'
                         clickHandler={reshuffleHandler}
-                        color='rose'
+                        colour='rose'
                     />
                 )}
             </section>

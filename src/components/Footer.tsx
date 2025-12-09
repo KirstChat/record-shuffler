@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FiInfo } from 'react-icons/fi';
 
 const Footer = () => {
-    const [visibility, setVisibility] = useState(false);
+    const [visibility, setVisibility] = useState<boolean>(false);
 
     const infoButtonHandler = () => {
         setVisibility(visibility ? false : true);
