@@ -1,3 +1,9 @@
+@import 'tailwindcss';
+@import 'swiper/css';
+@import 'swiper/css/a11y';
+@import 'swiper/css/effect-coverflow';
+@import 'swiper/css/pagination';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

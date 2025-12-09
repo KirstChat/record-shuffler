@@ -2,13 +2,23 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { A11y, EffectCoverflow, Keyboard, Pagination } from 'swiper/modules';
 import Record from './Record';
 
-import 'swiper/css';
-import 'swiper/css/a11y';
-import 'swiper/css/effect-coverflow';
-import 'swiper/css/keyboard';
-import 'swiper/css/pagination';
+interface SliderProps {
+    /** The array contain records data */
+    records: [
+        {
+            id: number;
+            basic_information: {
+                artists: [{ name: string }];
+                cover_image: string;
+                title: string;
+            };
+        }
+    ];
+    /** Whether or not the content is loading */
+    isLoading: boolean;
+}
 
-const Slider = ({ records, isLoading }) => {
+const Slider = ({ records, isLoading }: SliderProps) => {
     return (
         <Swiper
             modules={[A11y, EffectCoverflow, Keyboard, Pagination]}

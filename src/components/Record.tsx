@@ -1,10 +1,27 @@
 import { useEffect, useState } from 'react';
 
-const Record = ({ record, isLoading }) => {
+interface RecordProps {
+    /** The object contianing record data */
+    record: {
+        basic_information: {
+            artists: [
+                {
+                    name: string;
+                }
+            ];
+            cover_image: string;
+            title: string;
+        };
+    };
+    /** Whether or no the data is loading */
+    isLoading: boolean;
+}
+
+const Record = ({ record, isLoading }: RecordProps) => {
+    console.log('record:', record);
     const [fade, setFade] = useState(false);
 
-    // TODO: Remove this when adding OAuth
-    const removeUnwantedCharacters = (recordTitle) => {
+    const removeUnwantedCharacters = (recordTitle: string) => {
         return recordTitle.replace(/[()0-9]/g, '');
     };
 
