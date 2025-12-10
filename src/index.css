@@ -8,6 +8,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    overflow-y: hidden;
+}
+
 /* Loader Styles */
 .loader {
     border: 5px solid;
