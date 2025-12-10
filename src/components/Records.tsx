@@ -70,6 +70,7 @@ const Records = () => {
     } = useQuery<{ releases: Release[] }, Error>({
         queryKey: ['collection'],
         queryFn: fetchCollection,
+        enabled: !!user?.num_collection,
     });
 
     const isPending = userIsPending || collectionIsPending;
