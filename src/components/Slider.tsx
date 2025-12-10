@@ -22,6 +22,7 @@ const Slider = ({ records, isLoading }: SliderProps) => {
     return (
         <Swiper
             modules={[A11y, EffectCoverflow, Keyboard, Pagination]}
+            // direction={'vertical'}
             effect={'coverflow'}
             slidesPerView={'auto'}
             grabCursor={true}

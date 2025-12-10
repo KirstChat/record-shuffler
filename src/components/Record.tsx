@@ -18,8 +18,7 @@ interface RecordProps {
 }
 
 const Record = ({ record, isLoading }: RecordProps) => {
-    console.log('record:', record);
-    const [fade, setFade] = useState(false);
+    const [fade, setFade] = useState<boolean>(false);
 
     const removeUnwantedCharacters = (recordTitle: string) => {
         return recordTitle.replace(/[()0-9]/g, '');
